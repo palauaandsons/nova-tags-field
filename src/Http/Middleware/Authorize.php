@@ -1,9 +1,8 @@
 <?php
 
-namespace Spatie\TagsField\Http\Middleware;
+namespace PalauaAndSons\TagsField\Http\Middleware;
 
 use Closure;
-use Spatie\TagsField\Tags;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,9 +13,5 @@ class Authorize
         //TODO: see if this is necessary
 
         return $next($request);
-
-        return app(Tags::class)->authorize($request)
-            ? $next($request)
-            : abort(403);
     }
 }

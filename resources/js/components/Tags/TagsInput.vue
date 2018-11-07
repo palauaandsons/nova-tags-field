@@ -2,7 +2,6 @@
 export default {
     props: {
         tags: { required: true },
-        type: { default: null },
         suggestionLimit: { required: true },
         removeOnBackspace: { default: true },
     },
@@ -74,11 +73,7 @@ export default {
 
             let queryString = `?filter[containing]=${this.input}&limit=${this.suggestionLimit}`;
 
-            if (this.type) {
-                queryString += `&filter[type]=${this.type}`;
-            }
-
-            window.axios.get(`/nova-vendor/spatie/nova-tags-field${queryString}`).then(response => {
+            window.axios.get(`/nova-vendor/palauaandsons/nova-tags-field${queryString}`).then(response => {
                 // If the input was cleared by the time the request finished,
                 // clear the suggestions too.
                 if (!this.input) {

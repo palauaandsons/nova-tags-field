@@ -2,5 +2,6 @@
 
 
 use Illuminate\Support\Facades\Route;
+use PalauaAndSons\TagsField\Http\Controllers\TagsFieldController;
 
-Route::get('/', \Spatie\TagsField\Http\Controllers\TagsFieldController::class.'@index');
+Route::get('/', [TagsFieldController::class, 'index']);

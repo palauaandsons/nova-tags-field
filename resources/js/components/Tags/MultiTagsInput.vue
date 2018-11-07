@@ -1,7 +1,6 @@
 <template>
     <tags-input
       :tags="tags"
-      :type="type"
       :suggestion-limit="suggestionLimit"
       @input="handleInput"
     >
@@ -44,7 +43,7 @@
 import TagsInput from './TagsInput.vue';
 
 export default {
-    props: ['tags', 'type', 'suggestionLimit'],
+    props: ['tags', 'suggestionLimit'],
 
     model: {
         prop: 'tags',

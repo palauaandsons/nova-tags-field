@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\TagsField;
+namespace PalauaAndSons\TagsField;
 
-use Spatie\Tags\Tag;
+use Cartalyst\Tags\IlluminateTag as Tag;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -15,11 +15,6 @@ class Tags extends Field
         parent::__construct($name, $attribute, $resolveCallback);
 
         $this->multiple();
-    }
-
-    public function type(string $type)
-    {
-        return $this->withMeta(['type' => $type]);
     }
 
     public function multiple(bool $multiple = true)
@@ -71,17 +66,13 @@ class Tags extends Field
         $class = get_class($model);
 
         $class::saved(function ($model) use ($tagNames) {
-            $model->syncTagsWithType($tagNames, $this->meta()['type'] ?? null);
+            $model->setTags($tagNames);
         });
     }
 
     public function resolveAttribute($resource, $attribute = null)
     {
         $tags = $resource->tags;
-
-        if (array_has($this->meta(), 'type')) {
-            $tags = $tags->where('type', $this->meta()['type']);
-        }
 
         return $tags->map(function (Tag $tag) {
             return $tag->name;

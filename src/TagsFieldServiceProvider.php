@@ -1,12 +1,12 @@
 <?php
 
-namespace Spatie\TagsField;
+namespace PalauaAndSons\TagsField;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Spatie\TagsField\Http\Middleware\Authorize;
+use PalauaAndSons\TagsField\Http\Middleware\Authorize;
 
 class TagsFieldServiceProvider extends ServiceProvider
 {
@@ -39,7 +39,7 @@ class TagsFieldServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova', 'api', Authorize::class])
-            ->prefix('nova-vendor/spatie/nova-tags-field')
+            ->prefix('nova-vendor/palauaandsons/nova-tags-field')
             ->group(__DIR__.'/../routes/api.php');
     }
 

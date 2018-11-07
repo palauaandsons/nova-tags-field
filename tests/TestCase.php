@@ -1,11 +1,11 @@
 <?php
 
-namespace Spatie\TagsField\Tests;
+namespace PalauaAndSons\TagsField\Tests;
 
 use Dotenv\Dotenv;
 use Illuminate\Support\Facades\Route;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Spatie\TagsField\TagsFieldServiceProvider;
+use PalauaAndSons\TagsField\TagsFieldServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -21,7 +21,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            \Spatie\Tags\TagsServiceProvider::class,
+            \Cartalyst\Tags\TagsServiceProvider::class,
             TagsFieldServiceProvider::class,
         ];
     }
@@ -56,8 +56,8 @@ abstract class TestCase extends Orchestra
     {
         $this->artisan('migrate:fresh');
 
-        include_once __DIR__.'/../vendor/spatie/laravel-tags/database/migrations/create_tag_tables.php.stub';
+        include_once __DIR__.'/../vendor/cartalyst/tags/resources/migrations/2014_10_29_202547_migration_cartalyst_tags_create_tables.php';
 
-        (new \CreateTagTables())->up();
+        (new \MigrationCartalystTagsCreateTables())->up();
     }
 }

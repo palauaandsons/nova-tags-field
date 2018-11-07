@@ -1,8 +1,8 @@
 <?php
 
-namespace Spatie\TagsField\Http\Controllers;
+namespace PalauaAndSons\TagsField\Http\Controllers;
 
-use Spatie\Tags\Tag;
+use Cartalyst\Tags\IlluminateTag as Tag;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -18,11 +18,7 @@ class TagsFieldController extends Controller
         $query = Tag::query();
 
         if ($request->has('filter.containing')) {
-            $query->containing($request['filter']['containing']);
-        }
-
-        if ($request->has('filter.type')) {
-            $query->where('type', $request['filter']['type']);
+            $query->where('name', 'like', '%' . strtolower($request['filter']['containing']) . '%');
         }
 
         if ($request->has('limit')) {

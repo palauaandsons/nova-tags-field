@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    props: ['tags', 'type', 'name', 'suggestionLimit'],
+    props: ['tags', 'name', 'suggestionLimit'],
 
     model: {
         prop: 'tags',
@@ -38,10 +38,8 @@ export default {
 
     methods: {
         getAvailableTags() {
-            const queryString = this.type ? `filter[type]=${this.type}` : '';
-
             window.axios
-                .get(`/nova-vendor/spatie/nova-tags-field?${queryString}`)
+                .get(`/nova-vendor/palauaandsons/nova-tags-field`)
                 .then(response => {
                     this.availableTags = response.data;
 

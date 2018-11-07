@@ -1,47 +1,42 @@
 # A tags field for Nova apps
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/nova-tags-field.svg?style=flat-square)](https://packagist.org/packages/spatie/nova-tags-field)
-![CircleCI branch](https://img.shields.io/circleci/project/github/spatie/nova-tags-field/master.svg?style=flat-square)
-[![StyleCI](https://github.styleci.io/repos/145974148/shield?branch=master)](https://github.styleci.io/repos/145974148)
-[![Total Downloads](https://img.shields.io/packagist/dt/spatie/nova-tags-field.svg?style=flat-square)](https://packagist.org/packages/spatie/nova-tags-field)
+This package contains a Nova field to add tags to resources. Under the hood it uses the [cartalyst/tags](https://cartalyst.com/manual/tags) package.
 
-This package contains a Nova field to add tags to resources. Under the hood it uses the [spatie/laravel-tags](https://docs.spatie.be/laravel-tags) package.
-
-![screenshot of the tags field](https://spatie.github.io/nova-tags-field/screenshot.png)
-
-## Requirements
-
-This Nova field requires MySQL 5.7.8 or higher.
+This package is based on [spatie/nova-tags-field](https://github.com/spatie/nova-tags-field). All credit to [Spatie](https://spatie.be)'s team.
 
 ## Installation
 
-First you must install [spatie/laravel-tags](https://github.com/spatie/laravel-tags) into your Laravel app. Here are [the installation instructions](https://docs.spatie.be/laravel-tags/v2/installation-and-setup) for that package.
+First you must install [cartalyst/tags](https://github.com/cartalyst/tags) into your Laravel app. Here are [the installation instructions](https://cartalyst.com/manual/tags#installation) for that package.
 
 Next, you can install this package in to a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
 
 ```bash
-composer require spatie/nova-tags-field
+composer require palauaandsons/nova-tags-field
 ```
 
 ## Usage
 
-To make an Eloquent model taggable just add the `\Spatie\Tags\HasTags` trait to it:
+To make an Eloquent model taggagle add the `\Cartalyst\Tags\TaggableTrait` trait and implement the `\Cartalyst\Tags\TaggableInterface` interface:
 
 ```php
-class BlogPost extends \Illuminate\Database\Eloquent\Model
+use Cartalyst\Tags\TaggableTrait;
+use Cartalyst\Tags\TaggableInterface;
+use Illuminate\Database\Eloquent\Model;
+
+class BlogPost extends Model implements TaggableInterface
 {
-    use \Spatie\Tags\HasTags;
+    use TaggableTrait;
     
     ...
 }
 ```
 
-Next you can use the `Spatie\TagsField\Tags` field in your Nova resource:
+Next you can use the `PalauaAndSons\TagsField\Tags` field in your Nova resource:
 
 ```php
 namespace App\Nova;
 
-use Spatie\TagsField\Tags;
+use PalauaAndSons\TagsField\Tags;
 
 class BlogPost extends Resource
 {
@@ -60,7 +55,7 @@ class BlogPost extends Resource
 }
 ```
 
-Now you can view and add tags on the blog posts screen in your Nova app. All tags will be saved in the `tags` table. 
+Now you can view and add tags on the blog posts screen in your Nova app. 
 
 ## Limiting suggestions
 
@@ -74,25 +69,6 @@ You can change the number of suggestions with `limitSuggestions()`.
 
 ```php
 Tags::make('Tags')->limitSuggestions($maxNumberOfSuggestions),
-```
-
-## Using types
-
-The [underlying tags package](https://github.com/spatie/laravel-tags) has support for [tag types](https://docs.spatie.be/laravel-tags/v2/advanced-usage/using-types). To make your tags field save tags of a certain type just tack on the name of type when adding the field to your Nova resource.
-
-```php
-// in your Nova resource
-
-public function fields(Request $request)
-{
-    return [
-        // ...
-        
-        Tags::make('Tags')->type('my-special-type'),
-
-        // ...
-    ];
-}
 ```
 
 ## Allowing only one tag
@@ -118,7 +94,7 @@ The field will be rendered as a select form element. It will be populated by the
 
 ## Working with tags
 
-For more info on how to work with the saved tags, head over to [the docs of spatie/laravel-tags](https://docs.spatie.be/laravel-tags/).
+For more info on how to work with the saved tags, head over to [the docs of cartalyst/tags](https://cartalyst.com/manual/tags#usage).
 
 ## Administering tags in Nova
 
@@ -129,7 +105,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
-use Spatie\Tags\Tag as TagModel;
+use Cartalyst\Tags\IlluminateTag as TagModel;
 
 class Tag extends Resource
 {
@@ -144,7 +120,9 @@ class Tag extends Resource
     public function fields(Request $request)
     {
         return [
+            Text::make('Namespace')->sortable()->hideWhenUpdating(),
             Text::make('Name')->sortable(),
+            Text::make('Slug')->sortable(),
         ];
     }
 }
@@ -153,7 +131,7 @@ class Tag extends Resource
 ### Testing
 
 ``` bash
-composer test
+phpunit
 ```
 
 ### Changelog
@@ -166,28 +144,15 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Security
 
-If you discover any security related issues, please email freek@spatie.be instead of using the issue tracker.
-
-## Postcardware
-
-You're free to use this package, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using.
-
-Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
-
-We publish all received postcards [on our company website](https://spatie.be/en/opensource/postcards).
+If you discover any security related issues, please email isern@palauaandsons.com instead of using the issue tracker.
 
 ## Credits
 
 - [Freek Van der Herten](https://github.com/freekmurze)
+- [Spatie](https://spatie.be)
+- [Isern Palaus](https://github.com/ipalaus)
 
 The Vue components that render the tags are based upon the tag Vue components created by [Adam Wathan](https://twitter.com/adamwathan) as shown in [his excellent Advanced Vue Component Design course](https://adamwathan.me/advanced-vue-component-design/).
-
-## Support us
-
-Spatie is a webdesign agency based in Antwerp, Belgium. You'll find an overview of all our open source projects [on our website](https://spatie.be/opensource).
-
-Does your business depend on our contributions? Reach out and support us on [Patreon](https://www.patreon.com/spatie). 
-All pledges will be dedicated to allocating workforce on maintenance and new awesome stuff.
 
 ## License
 

@@ -1,6 +1,6 @@
 {
-    "name": "spatie/nova-tags-field",
-    "description": "A tags field for Nova apps",
+    "name": "palauaandsons/nova-tags-field",
+    "description": "A tags field for Nova apps that uses cartalyst/tags",
     "keywords": [
         "laravel",
         "nova"
@@ -11,19 +11,24 @@
             "url": "../laravel-nova"
         }
     ],
-    "homepage": "https://github.com/spatie/nova-tags-field",
+    "homepage": "https://github.com/palauaandsons/nova-tags-field",
     "license": "MIT",
     "authors": [
         {
             "name": "Freek Van der Herten",
             "email": "freek@spatie.be",
             "role": "Developer"
+        },
+        {
+            "name": "Isern Palaus",
+            "email": "isern@palauaandsons.com",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": ">=7.1.0",
-        "laravel/nova": "*",
-        "spatie/laravel-tags": "^2.1"
+        "cartalyst/tags": "^7.0.",
+        "laravel/nova": "*"
     },
     "require-dev": {
         "mockery/mockery": "^1.1",
@@ -32,18 +37,18 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\TagsField\\": "src/"
+            "PalauaAndSons\\TagsField\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\TagsField\\Tests\\": "tests"
+            "PalauaAndSons\\TagsField\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\TagsField\\TagsFieldServiceProvider"
+                "PalauaAndSons\\TagsField\\TagsFieldServiceProvider"
             ]
         }
     },
