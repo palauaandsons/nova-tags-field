@@ -10,7 +10,7 @@ class Tags extends Field
 {
     public $component = 'nova-tags-field';
 
-    public function __construct($name, $attribute = null, $resolveCallback = null)
+    public function __construct($name, $attribute = null, ?callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
 
@@ -20,7 +20,7 @@ class Tags extends Field
     public function multiple(bool $multiple = true)
     {
         $this->withMeta([
-            'multiple' => $multiple,
+            'multiple'        => $multiple,
             'suggestionLimit' => 5,
         ]);
 
@@ -57,6 +57,13 @@ class Tags extends Field
         return $this->limitSuggestions(9999);
     }
 
+    public function resolveAttribute($resource, $attribute = null)
+    {
+        $tags = $resource->tags;
+
+        return $tags->map(fn (Tag $tag) => $tag->name)->values();
+    }
+
     protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
     {
         $requestValue = $request[$requestAttribute];
@@ -68,14 +75,5 @@ class Tags extends Field
         $class::saved(function ($model) use ($tagNames) {
             $model->setTags($tagNames);
         });
-    }
-
-    public function resolveAttribute($resource, $attribute = null)
-    {
-        $tags = $resource->tags;
-
-        return $tags->map(function (Tag $tag) {
-            return $tag->name;
-        })->values();
     }
 }

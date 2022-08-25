@@ -1,14 +1,14 @@
 <template>
-    <default-field :field="field">
-        <template slot="field">
-            <component
-                :is="component"
-                :name="field.name"
-                :suggestion-limit="field.suggestionLimit"
+    <DefaultField :field="field">
+        <template #field>
+            <component 
+                :is="component" 
+                :name="field.name" 
+                :suggestion-limit="field.suggestionLimit" 
                 v-model="tags"
             ></component>
         </template>
-    </default-field>
+    </DefaultField>
 </template>
 
 <script>
@@ -17,15 +17,13 @@ import SingleTagsInput from '../Tags/SingleTagsInput';
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
 
 export default {
-    inheritAttrs: false,
+    props: ['field'],
 
     mixins: [FormField, HandlesValidationErrors],
 
-    props: ['field'],
-
     data() {
         return {
-            tags: this.field.value,
+            tags: this.field.value || [],
         };
     },
 

@@ -1,11 +1,15 @@
 <template>
-    <p class="py-3 tags-index-field" v-text="field.value.join(', ')"></p>
+    <p class="py-3 tags-index-field"> {{ fieldName }} </p>
 </template>
 
 <script>
 export default {
-    inheritAttrs: false,
-
     props: ['field'],
+
+    computed: {
+        fieldValue() {
+            return this.field.displayedAs || field.value.join(', ')
+        },
+    }
 };
 </script>
