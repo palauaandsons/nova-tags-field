@@ -1,13 +1,11 @@
 <template>
-    <panel-item :field="field">
-        <p slot="value" v-text="field.value.join(', ')"></p>
-    </panel-item>
+    <PanelItem :field="field" :index="index">
+       <template #value>{{  field.value.join(', ') }}</template>
+    </PanelItem>
 </template>
 
 <script>
 export default {
-    inheritAttrs: false,
-
-    props: ['field'],
+    props: ['index', 'field'],
 };
 </script>

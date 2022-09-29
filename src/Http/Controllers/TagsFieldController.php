@@ -8,25 +8,18 @@ use Illuminate\Routing\Controller;
 
 class TagsFieldController extends Controller
 {
-    /**
-     * @param Request $request
-     *
-     * @return mixed
-     */
-    public function index(Request $request)
+    public function __invoke(Request $request)
     {
         $query = Tag::query();
 
         if ($request->has('filter.containing')) {
-            $query->where('name', 'like', '%' . strtolower($request['filter']['containing']) . '%');
+            $query->where('name', 'like', '%'.strtolower($request['filter']['containing']).'%');
         }
 
         if ($request->has('limit')) {
             $query->limit($request['limit']);
         }
 
-        return $query->get()->map(function (Tag $tag) {
-            return $tag->name;
-        });
+        return $query->get()->map(fn (Tag $tag) => $tag->name);
     }
 }

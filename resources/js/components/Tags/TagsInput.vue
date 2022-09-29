@@ -29,6 +29,7 @@ export default {
 
     methods: {
         addTag() {
+            console.log(this.tags);
             if (this.newTag.length === 0 || this.tags.includes(this.newTag)) {
                 return;
             }
@@ -73,7 +74,7 @@ export default {
 
             let queryString = `?filter[containing]=${this.input}&limit=${this.suggestionLimit}`;
 
-            window.axios.get(`/nova-vendor/palauaandsons/nova-tags-field${queryString}`).then(response => {
+            Nova.request().get(`/nova-vendor/palauaandsons/nova-tags-field${queryString}`).then(response => {
                 // If the input was cleared by the time the request finished,
                 // clear the suggestions too.
                 if (!this.input) {
@@ -96,8 +97,8 @@ export default {
     },
 
     render() {
-        return this.$scopedSlots.default({
-            tags: this.tags,
+        return this.$slots.default({
+            tags: this.tags || [],
             addTag: this.addTag,
             removeTag: this.removeTag,
             selectTag: this.selectTag,

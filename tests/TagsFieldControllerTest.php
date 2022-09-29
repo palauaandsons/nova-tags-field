@@ -3,12 +3,15 @@
 namespace PalauaAndSons\TagsField\Tests;
 
 use Cartalyst\Tags\IlluminateTag as Tag;
+use Illuminate\Support\Facades\Gate;
 
 class TagsFieldControllerTest extends TestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
+
+        // Gate::define('viewNova', fn ($user) => true);
 
         $this->createTags();
     }

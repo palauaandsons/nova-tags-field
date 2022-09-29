@@ -1,17 +1,17 @@
 <template>
-    <select
-        v-if="loaded"
-        class="w-full form-control form-select"
-        :id="name"
-        :value="tags[0]"
-        @input="$emit('input', [$event.target.value])"
+    <select 
+        v-if="loaded" 
+        class="w-full form-control form-select" 
+        :id="name" 
+        :value="modelValue[0]"
+        @input="$emit('update:modelValue', [$event.target.value])"
     >
         <option value="" selected disabled>
             {{ __('Choose an option') }}
         </option>
-        <option
-            v-for="tag in availableTags"
-            :key="tag"
+        <option 
+            v-for="tag in availableTags" 
+            :key="tag" 
             :value="tag"
         >
             {{ tag }}
@@ -21,11 +21,9 @@
 
 <script>
 export default {
-    props: ['tags', 'name', 'suggestionLimit'],
+    props: ['modelValue', 'name', 'suggestionLimit'],
 
-    model: {
-        prop: 'tags',
-    },
+    emits: ['update:modelValue'],
 
     data: () => ({
         loaded: false,
@@ -38,7 +36,7 @@ export default {
 
     methods: {
         getAvailableTags() {
-            window.axios
+            Nova.request()
                 .get(`/nova-vendor/palauaandsons/nova-tags-field`)
                 .then(response => {
                     this.availableTags = response.data;
