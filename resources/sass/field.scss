@@ -6,30 +6,30 @@
     flex-wrap: wrap;
     height: auto;
     min-height: 36px;
-    padding-top: 0.25rem;
+    padding: 0.25rem 0.3rem;
 }
 
 .tags-input:focus-within {
-    box-shadow: 0 0 8px var(--primary);
+    box-shadow: 0 0 8px rgba(var(--colors-primary-300));
 }
 
 .tags-input-tag {
     align-items: center;
-    background-color: var(--primary);
-    border-radius: 0.25rem;
+    background-color: rgba(var(--colors-primary-500));
+    border-radius: 0.4rem;
     color: white;
     display: inline-flex;
     font-size: 0.875rem;
     line-height: 1;
-    margin-bottom: 0.25rem;
-    padding: 0.125rem 0.375rem;
+    padding: 0.25rem 0.75rem;
     user-select: none;
 }
 
 .tags-input-remove {
     color: white;
     font-size: 1.125rem;
-    margin-left: 0.25rem;
+    text-transform: uppercase;
+    margin-left: 0.4rem;
 }
 
 .tags-input-remove:focus {
@@ -37,9 +37,9 @@
 }
 
 .tags-input-text {
-    margin-bottom: 0.25rem;
-    margin-left: 0.25rem;
+    margin-left: 0.35rem;
     min-width: 8rem;
+    background: transparent;
     outline: 0;
 }
 
